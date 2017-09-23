@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project Details</title>
+</head>
+<body>
+    <h1>Project Details</h1>
+    <div>
+        <p>Name: {{project["name"]}}</p>
+        <P>Description: {{project["description"]}}</P>
+        <p>Date due: {{project["date_due"]}}</p>
+        <p>
+            Status: 
+            {% if project["date_completed"] %}
+            Completed
+            {% else %}
+            Incomplete
+            {% endif %}
+        </p>
+        <p>
+            Date Completed:
+            {% if project["date_completed"] %}
+            {{project["date_completed"]}}
+            {% else %}
+            N/A
+            {% endif %}</p>
+    </div>
+    <a href="/dashboard"><button>Back</button></a>
+</body>
+</html>

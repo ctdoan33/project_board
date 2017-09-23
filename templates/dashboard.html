@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project Dashboard</title>
+</head>
+<body>
+    <form action="/logout" method="post">
+        <input type="submit" value="logout">
+    </form>
+    <h1>Current Projects</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Date Due</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in all_projects %}
+            {% if project["date_completed"] == None %}
+            <tr>
+                <td>{{project["name"]}}</td>
+                <td>{{project["date_due"]}}</td>
+                <td>
+                    <a href="/show/{{project['id']}}"><button>details</button></a>
+                    <form style="display: inline" action="/destroy/{{project['id']}}" method="post">
+                        <input type="submit" value="delete task">
+                    </form>
+                    <form style="display: inline" action="/update/{{project['id']}}" method="post">
+                        <input type="submit" value="complete task">
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/add"><button>Add Project</button></a>
+    <h1>Completed Projects</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Date Due</th>
+                <th>Date Completed</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in all_projects %}
+            {% if project["date_completed"] %}
+            <tr>
+                <td>{{project["name"]}}</td>
+                <td>{{project["date_due"]}}</td>
+                <td>{{project["date_completed"]}}</td>
+                <td>
+                    <a href="/show/{{project['id']}}"><button>details</button></a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
