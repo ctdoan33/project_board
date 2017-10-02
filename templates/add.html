@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Add a Project</title>
 </head>
-<body>
-    <h1>Add a Project</h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-        <p>{{message}}</p>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <form action="/create" method="post">
-        <p>Name: <input type="text" name="name"></p>
-        <p>Deadline: <input type="date" name="date_due"></p>
-        <p>Description: <textarea name="description"></textarea></p>
-        <input type="submit" value="add">
-    </form>
+<body class="center">
+    <div class="block">
+        <h1>Add a Project:</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="/create" method="post">
+            <p class="inputline"><label>Name:</label> <input type="text" name="name"></p>
+            <p class="inputline"><label>Deadline:</label> <input type="date" name="date_due"></p>
+            <p class="inputline"><label>Description:</label> <textarea name="description"></textarea></p>
+            <a href="/dashboard" class="back"><button form="#">Back</button></a>
+            <input type="submit" value="Add" class="confirm">
+        </form>
+    </div>
 </body>
 </html>

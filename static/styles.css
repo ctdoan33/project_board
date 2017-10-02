@@ -1,0 +1,68 @@
+.center{
+    text-align: center;
+}
+.block{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    padding: 1em;
+}
+form{
+    text-align: left;
+}
+.inputline{
+    display: table-row;
+}
+label{
+    display: table-cell;
+    padding: .5em;
+    vertical-align: top;
+}
+input{
+    display: table-cell;
+    margin: .5em;
+}
+textarea{
+    display: table-cell;
+    margin: .5em;
+}
+a{
+    margin: .5em;
+}
+.note{
+    text-align: center;
+}
+.submit{
+    float: right
+}
+table{
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: left;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td{
+    border-right: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+th{
+    background-color: #E0E0E0;
+}
+tr:nth-child(odd){
+    background-color: #F0F0F0;
+}
+.back{
+    float: left;
+}
+.confirm{
+    float: right;
+}
+.add{
+    margin-top: 1em;
+}
+.outline{
+    border: 1px solid black;
+    text-align: left;
+}

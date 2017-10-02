@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Project Details</title>
 </head>
-<body>
-    <h1>Project Details</h1>
-    <div>
-        <p>Name: {{project["name"]}}</p>
-        <P>Description: {{project["description"]}}</P>
-        <p>Date due: {{project["date_due"]}}</p>
+<body class="center">
+    <h1>Project Details:</h1>
+    <div class="block outline">
+        <p><b>Name: </b>{{project["name"]}}</p>
+        <P><b>Description: </b>{{project["description"]}}</P>
+        <p><b>Date due: </b>{{project["date_due"]}}</p>
         <p>
-            Status: 
+            <b>Status: </b>
             {% if project["date_completed"] %}
             Completed
             {% else %}
@@ -21,13 +22,14 @@
             {% endif %}
         </p>
         <p>
-            Date Completed:
+            <b>Date Completed: </b>
             {% if project["date_completed"] %}
             {{project["date_completed"]}}
             {% else %}
             N/A
-            {% endif %}</p>
+            {% endif %}
+        </p>
     </div>
-    <a href="/dashboard"><button>Back</button></a>
+    <p><a href="/dashboard"><button>Back</button></a></p>
 </body>
 </html>

@@ -108,16 +108,20 @@ def log():
     return redirect("/")
 @app.route("/dashboard")
 def dashboard():
+    if "id" not in session:
+        return redirect("/")
     query = "SELECT id, name, DATE_FORMAT(date_due, '%m/%d/%Y') as date_due, DATE_FORMAT(date_completed, '%m/%d/%Y') as date_completed FROM projects WHERE user_id = :user_id"
     data = {"user_id" : session["id"]}
     all_projects = mysql.query_db(query, data)
     return render_template("dashboard.html", all_projects=all_projects)
-@app.route("/logout", methods=["POST"])
+@app.route("/logout")
 def logout():
     session.pop("id")
     return redirect("/")
 @app.route("/show/<project_id>")
 def show(project_id):
+    if "id" not in session:
+        return redirect("/")
     query = "SELECT name, description, DATE_FORMAT(date_due, '%m/%d/%Y') as date_due, DATE_FORMAT(date_completed, '%m/%d/%Y') as date_completed FROM projects WHERE id = :id and user_id = :user_id"
     data = {
         "id":int(project_id),
@@ -128,19 +132,23 @@ def show(project_id):
     return render_template("details.html", project=project[0])
 @app.route("/add")
 def add():
+    if "id" not in session:
+        return redirect("/")
     return render_template("add.html")
 @app.route("/create", methods=["POST"])
 def create():
+    if "id" not in session:
+        return redirect("/")
     valid=True
     if len(request.form["name"])<1:
         flash("Project name cannot be blank")
         valid=False
     try:
         if datetime.strptime(request.form["date_due"], "%Y-%m-%d") < datetime.today():
-            flash("Due date must be in the future")
+            flash("Deadline must be in the future")
             valid=False
     except ValueError:
-        flash("Due date not valid")
+        flash("Deadline date not valid")
         valid=False
     if valid:
         query = "INSERT INTO projects (name, date_due, description, user_id, created_at, updated_at) VALUES (:name, :date_due, :description, :user_id, NOW(), NOW())"
@@ -153,8 +161,10 @@ def create():
         newproject = mysql.query_db(query, data)
         return redirect("/show/"+str(newproject))
     return redirect("/add")
-@app.route("/destroy/<project_id>", methods=["POST"])
+@app.route("/destroy/<project_id>")
 def delete(project_id):
+    if "id" not in session:
+        return redirect("/")
     query = "SELECT date_completed FROM projects WHERE id = :id AND user_id = :user_id"
     data = {
         "id" : int(project_id),
@@ -165,13 +175,15 @@ def delete(project_id):
     query = "DELETE FROM projects WHERE id=:id"
     mysql.query_db(query, data)
     return redirect("/dashboard")
-@app.route("/update/<project_id>", methods=["POST"])
+@app.route("/update/<project_id>")
 def update(project_id):
+    if "id" not in session:
+        return redirect("/")
     query = "UPDATE projects SET date_completed = NOW(), updated_at = NOW() WHERE id = :id AND user_id = :user_id"
     data = {
         "id" : int(project_id),
         "user_id":session["id"]
         }
     mysql.query_db(query, data)
-    return redirect("/show/"+project_id)
+    return redirect("/dashboard")
 app.run(debug=True)

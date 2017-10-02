@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Project Dashboard</title>
 </head>
-<body>
-    <form action="/logout" method="post">
-        <input type="submit" value="logout">
-    </form>
-    <h1>Current Projects</h1>
+<body class="center">
+    <a href="/logout" class="back">logout</a>
+    <h1>Current Projects:</h1>
     <table>
         <thead>
             <tr>
@@ -26,21 +25,17 @@
                 <td>{{project["name"]}}</td>
                 <td>{{project["date_due"]}}</td>
                 <td>
-                    <a href="/show/{{project['id']}}"><button>details</button></a>
-                    <form style="display: inline" action="/destroy/{{project['id']}}" method="post">
-                        <input type="submit" value="delete task">
-                    </form>
-                    <form style="display: inline" action="/update/{{project['id']}}" method="post">
-                        <input type="submit" value="complete task">
-                    </form>
+                    <a href="/show/{{project['id']}}">details</a>|
+                    <a href="/destroy/{{project['id']}}">delete task</a>|
+                    <a href="/update/{{project['id']}}">complete task</a>
                 </td>
             </tr>
             {% endif %}
             {% endfor %}
         </tbody>
     </table>
-    <a href="/add"><button>Add Project</button></a>
-    <h1>Completed Projects</h1>
+    <a href="/add"><button class="add">Add Project</button></a>
+    <h1>Completed Projects:</h1>
     <table>
         <thead>
             <tr>
@@ -58,7 +53,7 @@
                 <td>{{project["date_due"]}}</td>
                 <td>{{project["date_completed"]}}</td>
                 <td>
-                    <a href="/show/{{project['id']}}"><button>details</button></a>
+                    <a href="/show/{{project['id']}}">details</a>
                 </td>
             </tr>
             {% endif %}
